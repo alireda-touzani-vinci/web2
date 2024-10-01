@@ -32,13 +32,12 @@ const defaultFilms: Film[] = [
 ];
 
 router.get("/", (req, res) => {
-  if(!req.query["minimum-duration"])
-    return res.json(defaultFilms);
+  if (!req.query["minimum-duration"]) return res.json(defaultFilms);
 
   const minimumDuration = Number(req.query["minimum-duration"]);
-  if(minimumDuration <= 0 || typeof minimumDuration !== "number")
+  if (minimumDuration <= 0 || typeof minimumDuration !== "number")
     return res.sendStatus(400);
-  
+
   const filteredFilms = defaultFilms.filter((film) => {
     return film.duration >= minimumDuration;
   });
@@ -46,17 +45,13 @@ router.get("/", (req, res) => {
   return res.json(filteredFilms);
 });
 
-
-
 router.get("/:id", (req, res) => {
   const id = Number(req.params.id);
   const film = defaultFilms.find((film) => film.id === id);
-  if(!film)
-    return res.sendStatus(404);
+  if (!film) return res.sendStatus(404);
 
   return res.json(film);
 });
-
 
 router.post("/", (req, res) => {
   const body: unknown = req.body;
@@ -74,22 +69,28 @@ router.post("/", (req, res) => {
     ("budget" in body && typeof body.budget !== "number") ||
     ("budget" in body && typeof body.budget === "number" && body.budget <= 0) ||
     ("description" in body && typeof body.description !== "string") ||
-    ("imageUrl" in body && typeof body.imageUrl !== "string")) {
+    ("imageUrl" in body && typeof body.imageUrl !== "string")
+  ) {
     return res.sendStatus(400);
   }
 
   for (let index = 0; index < defaultFilms.length; index++) {
-    if (body.title === defaultFilms[index].title || body.director === defaultFilms[index].director) {
+    if (
+      body.title === defaultFilms[index].title ||
+      body.director === defaultFilms[index].director
+    ) {
       return res.sendStatus(409);
     }
-    
   }
 
-  const { title, director, duration, budget, description, imageUrl} = body as NewFilm;
+  const { title, director, duration, budget, description, imageUrl } =
+    body as NewFilm;
 
   const nextId =
-    defaultFilms.reduce((maxId, film) => (film.id > maxId ? film.id : maxId), 0) +
-    1;
+    defaultFilms.reduce(
+      (maxId, film) => (film.id > maxId ? film.id : maxId),
+      0
+    ) + 1;
 
   const newDrink: Film = {
     id: nextId,
@@ -98,7 +99,7 @@ router.post("/", (req, res) => {
     duration,
     budget,
     description,
-    imageUrl
+    imageUrl,
   };
 
   defaultFilms.push(newDrink);
