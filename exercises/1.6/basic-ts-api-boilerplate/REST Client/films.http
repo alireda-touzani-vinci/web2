@@ -1,0 +1,24 @@
+### Read all films
+@baseUrl = http://localhost:3000
+GET {{baseUrl}}/films
+
+
+### Read all films with a minimum duration of 78
+GET {{baseUrl}}/films/?minimum-duration=78
+
+
+### Read the film with the id 3
+
+GET {{baseUrl}}/films/3
+
+
+### Create a film
+
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title": "Goku VS Vegeta",
+    "director": "Akira Toriyama",
+    "duration": 90
+}
