@@ -22,3 +22,81 @@ Content-Type: application/json
     "director": "Akira Toriyama",
     "duration": 90
 }
+
+### Try to create a film with a parameter missing
+POST {{baseUrl}}/films/
+Content-Type: application/json
+
+{
+    "title":" ",
+    "duration": 136,
+    "budget": 115,
+    "imageUrl":"https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg"
+}
+
+### Try to create a film with an empty string or string with whitespaces only
+POST {{baseUrl}}/films/
+Content-Type: application/json
+
+{
+    "title":" ",
+    "duration": 136,
+    "director": "George Lucas",
+    "budget": 115,
+    "imageUrl":"https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg"
+}
+
+### Try to create a film with a wrong budget (string instead of number)
+POST {{baseUrl}}/films/
+Content-Type: application/json
+
+{
+    "title":"Star Wars: The Phantom Menace (Episode I)",
+    "duration": 136,
+    "director": "George Lucas",
+    "budget": "115",
+    "imageUrl":"https://upload.wikimedia.org/wikipedia/en/4/40/Star_Wars_Phantom_Menace_poster.jpg"
+}
+
+### Delete the film with ID == 2
+DELETE {{baseUrl}}/films/2
+
+### Update the film with ID == 1
+PATCH {{baseUrl}}/films/1
+Content-Type: application/json
+
+{
+    "title":"Jojo's Bizarre Adventure",
+    "budget": 115,
+    "director": "Hirohiko Araki"
+}
+
+### Try to update film with ID == 2 with empty param
+PATCH {{baseUrl}}/films/2
+Content-Type: application/json
+
+{
+    "title":""
+}
+
+### Try to update film with ID == 2 when missing one expected parameter (director)
+PUT {{baseUrl}}/films/2
+Content-Type: application/json
+
+{
+    "title":"Star Wars: Episode II - Attack of the Clones",
+    "duration": 142,
+    "budget": 115
+}
+
+### Create new film with ID == 666
+PUT {{baseUrl}}/films/666
+Content-Type: application/json
+
+{
+    "title":"Attack of the beast",
+    "duration": 666,
+    "director": "The beast",
+    "budget": 666,
+    "imageUrl":"https://666"
+}
