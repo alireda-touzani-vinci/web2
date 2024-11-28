@@ -12,7 +12,7 @@ const AddMovieForm = () => {
   const [newPicture, setPicture] = useState("");
   const [newDescription, setDescription] = useState("");
   const [newBudget, setBudget] = useState(0);
-  const {addMovie}: MovieContext = useOutletContext();
+  const {addMovie, movies}: MovieContext = useOutletContext();
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
     console.log(
@@ -25,7 +25,11 @@ const AddMovieForm = () => {
       newBudget
     );
 
+    const nextId = (movies: Movie[]) => {
+      return movies.reduce((maxId, movie) => Math.max(maxId, movie.id), 0) + 1;
+    };
     const newMovie: Movie = {
+      id: nextId(movies),
       title: newTitle,
       director: newDirector,
       duration: newDuration,

@@ -5,6 +5,7 @@ const CinemaPage = () => {
   const name = "UGC DeBrouckère";
   const movies: Movie[] = [
     {
+      id: 6,
       title: "HAIKYU-THE DUMPSTER BATTLE",
       director: "Susumu Mitsunaka",
       description:
@@ -12,6 +13,7 @@ const CinemaPage = () => {
       duration: 120,
     },
     {
+      id: 7,
       title: "GOODBYE JULIA",
       director: "Mohamed Kordofani",
       description:
@@ -19,6 +21,7 @@ const CinemaPage = () => {
       duration: 90,
     },
     {
+      id: 8,
       title: "INCEPTION",
       director: "Christopher Nolan",
       description:
@@ -26,6 +29,7 @@ const CinemaPage = () => {
       duration: 148,
     },
     {
+      id: 9,
       title: "PARASITE",
       director: "Bong Joon-ho",
       description:
