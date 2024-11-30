@@ -3,7 +3,7 @@ import { Dog } from "../types";
 
 const RandomDog = () => {
   const [dog, setDog] = useState<Dog | undefined>(undefined);
-
+  const [isHovered, setIsHovered] = useState(false);
   const fetchDogImage = async () => {
     try {
       const response = await fetch("https://dog.ceo/api/breeds/image/random");
@@ -25,8 +25,12 @@ const RandomDog = () => {
 
   useEffect(() => {
     fetchDogImage();
-    setInterval(fetchDogImage, 5000);
-  }, []);
+    const interval = setInterval(() => {
+      fetchDogImage();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isHovered]);
 
   if (!dog) {
     return <div>Loading...</div>;
@@ -34,7 +38,13 @@ const RandomDog = () => {
 
   return (
     <div>
-      <img src={dog.message} alt="Random dog" style={{ maxHeight: 300 }} />
+      <img
+        src={dog.message}
+        alt="Random dog"
+        style={{ maxHeight: 300 }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      />
     </div>
   );
 };
